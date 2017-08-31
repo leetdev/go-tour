@@ -8,10 +8,12 @@ import "fmt"
 // a function that returns an int.
 func fibonacci() func() int {
 	a, b := 0, 1
-	defer func() {
-		a, b = b, a+b
-	}()
-	return a
+	return func() int {
+		defer func() {
+			a, b = b, a+b
+		}()
+		return a
+	}
 }
 
 func main() {
